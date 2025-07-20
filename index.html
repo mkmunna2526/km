@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Momte </title>
+    <title>Momte</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <style>
         * {
@@ -14,141 +14,163 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4A90E2 0%, #D81B60 100%);
             min-height: 100vh;
             color: #333;
             overflow-x: hidden;
         }
 
         .container {
-            max-width: 400px;
+            max-width: 420px;
             margin: 0 auto;
-            background: white;
+            background: #ffffff;
             min-height: 100vh;
             position: relative;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            box-shadow: 0 0 25px rgba(0,0,0,0.15);
+            border-radius: 15px 15px 0 0;
         }
 
         .header {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            background: linear-gradient(135deg, #4A90E2, #D81B60);
             color: white;
-            padding: 20px;
+            padding: 10px 25px; /* Reduced padding */
             text-align: center;
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px; /* Reduced gap between logo, title, and user info */
+        }
+
+        .header .logo {
+            width: 30px;
+            height: 30px; /* Reduced size */
+            background: url('logo-placeholder.png') no-repeat center/cover; /* Replace with your image */
+            margin: 0;
         }
 
         .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-size: 20px; /* Reduced font size */
+            font-weight: 800;
+            margin: 0;
+            display: block;
         }
 
-        .header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .user-info {
-            background: rgba(255,255,255,0.1);
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 10px;
-            display: none;
+        .header .user-info {
+            background: none;
+            margin: 0;
+            padding: 0;
+            display: block;
+            font-size: 12px; /* Reduced font size */
+            opacity: 0.85;
+            font-style: italic;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .main-content {
-            padding: 20px;
-            padding-bottom: 80px;
+            padding: 25px;
+            padding-bottom: 90px;
         }
 
         .products-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 18px;
+            margin-bottom: 35px;
         }
 
         .product-card {
-            background: white;
-            border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
             border: 2px solid transparent;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(135deg, #ffffff 70%, #E6F0FA 100%);
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            border-color: #6366f1;
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px rgba(74,144,226,0.2);
+            border-color: #4A90E2;
         }
 
         .product-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 10px;
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            font-size: 34px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #D81B60, #4A90E2);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .product-price {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
-            color: #6366f1;
-            margin-bottom: 5px;
+            color: #D81B60;
+            margin-bottom: 8px;
             text-align: center;
+            text-transform: uppercase;
         }
 
         .product-stock {
-            font-size: 12px;
+            font-size: 13px;
             color: #666;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            font-weight: 500;
         }
 
         .buy-btn {
             width: 100%;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            background: linear-gradient(135deg, #4A90E2, #D81B60);
             color: white;
             border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: 600;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 12px;
+            transition: all 0.4s ease;
+            font-size: 14px;
+            text-transform: uppercase;
         }
 
         .buy-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            transform: scale(1.07);
+            box-shadow: 0 6px 20px rgba(74,144,226,0.4);
         }
 
         .collect-btn {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #10B981, #059669);
         }
 
         .free-products {
-            margin-top: 20px;
+            margin-top: 25px;
             padding-top: 20px;
-            border-top: 2px solid #f1f5f9;
+            border-top: 2px dashed #E6F0FA;
         }
 
         .free-title {
             text-align: center;
-            font-size: 18px;
-            font-weight: 700;
-            color: #10b981;
-            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 800;
+            color: #10B981;
+            margin-bottom: 18px;
+            text-transform: uppercase;
         }
 
         .bottom-nav {
@@ -157,65 +179,69 @@
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             background: white;
             padding: 15px;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 -6px 25px rgba(0,0,0,0.15);
             display: flex;
             justify-content: space-around;
             z-index: 1000;
+            border-top: 1px solid #E6F0FA;
         }
 
         .nav-btn {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            background: linear-gradient(135deg, #4A90E2, #D81B60);
             color: white;
             border: none;
             padding: 12px 20px;
             border-radius: 25px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             flex: 1;
-            margin: 0 5px;
+            margin: 0 8px;
+            text-transform: uppercase;
         }
 
         .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(74,144,226,0.4);
         }
 
         .account-section {
             display: none;
-            padding: 20px;
+            padding: 25px;
         }
 
         .balance-card {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            background: linear-gradient(135deg, #4A90E2, #D81B60);
             color: white;
             padding: 20px;
-            border-radius: 15px;
+            border-radius: 18px;
             text-align: center;
             margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         }
 
         .balance-amount {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 5px;
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 8px;
         }
 
         .tasks-section {
-            background: white;
-            border-radius: 15px;
+            background: #ffffff;
+            border-radius: 18px;
             padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         }
 
         .tasks-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 18px;
             color: #333;
+            text-transform: uppercase;
         }
 
         .task-item {
@@ -223,7 +249,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 0;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid #E6F0FA;
         }
 
         .task-info {
@@ -231,74 +257,78 @@
         }
 
         .task-title {
-            font-weight: 600;
-            margin-bottom: 5px;
+            font-weight: 700;
+            margin-bottom: 6px;
         }
 
         .task-reward {
-            font-size: 14px;
-            color: #10b981;
-            font-weight: 600;
+            font-size: 15px;
+            color: #10B981;
+            font-weight: 700;
         }
 
         .task-btn {
-            background: #6366f1;
+            background: #4A90E2;
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 10px 18px;
             border-radius: 20px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
         }
 
         .task-btn.completed {
-            background: #10b981;
+            background: #10B981;
         }
 
         .task-btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.07);
         }
 
         .referral-section {
-            margin-top: 20px;
-            background: white;
-            border-radius: 15px;
+            margin-top: 25px;
+            background: #ffffff;
+            border-radius: 18px;
             padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            display: block;
         }
 
         .referral-link {
-            background: #f8fafc;
-            padding: 10px;
-            border-radius: 8px;
+            background: #F5F7FA;
+            padding: 12px;
+            border-radius: 10px;
             word-break: break-all;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-family: monospace;
+            color: #333;
         }
 
         .share-btn {
             width: 100%;
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #10B981, #059669);
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 600;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 700;
             cursor: pointer;
+            text-transform: uppercase;
         }
 
         .purchased-section {
             display: none;
-            padding: 20px;
+            padding: 25px;
         }
 
         .purchased-item {
-            background: white;
-            border-radius: 10px;
+            background: #ffffff;
+            border-radius: 12px;
             padding: 15px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #4A90E2;
         }
 
         .modal {
@@ -308,19 +338,20 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             z-index: 2000;
             align-items: center;
             justify-content: center;
         }
 
         .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 18px;
             text-align: center;
-            max-width: 300px;
+            max-width: 320px;
             margin: 0 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .pulse {
@@ -329,18 +360,18 @@
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.06); }
             100% { transform: scale(1); }
         }
 
         .loading {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #6366f1;
+            width: 24px;
+            height: 24px;
+            border: 4px solid #F3F3F3;
+            border-top: 4px solid #4A90E2;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 1.2s linear infinite;
         }
 
         @keyframes spin {
@@ -352,13 +383,13 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #10b981;
+            background: #10B981;
             color: white;
             padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
             transform: translateX(400px);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
             z-index: 3000;
         }
 
@@ -371,10 +402,10 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
+            <div class="logo"></div>
             <h1>MOMTE</h1>
-            <p></p>
             <div class="user-info" id="userInfo">
-                <div id="userName">Guest User</div>
+                <span id="userName">Guest User</span>
             </div>
         </div>
 
@@ -385,50 +416,50 @@
                 <div class="product-card pulse">
                     <div class="product-icon">⌚</div>
                     <div class="product-price">0.5 TON</div>
-                    <div class="product-stock">Stock: <span id="watch-sold">0</span>/50000</div>
-                    <button class="buy-btn" onclick="buyProduct('watch', 0.5, 'watch-sold')">Buy with TON</button>
+                    <div class="product-stock">Stock: <span id="watch-sold">0</span>/<span id="watch-total">50000</span></div>
+                    <button class="buy-btn" onclick="buyProduct('watch', 0.5, 'watch-sold')">Buy Now</button>
                 </div>
 
                 <div class="product-card pulse">
                     <div class="product-icon">🔑</div>
                     <div class="product-price">0.3 TON</div>
-                    <div class="product-stock">Stock: <span id="headphones-sold">0</span>/5000</div>
-                    <button class="buy-btn" onclick="buyProduct('headphones', 0.3, 'headphones-sold')">Buy with TON</button>
+                    <div class="product-stock">Stock: <span id="headphones-sold">0</span>/<span id="headphones-total">5000</span></div>
+                    <button class="buy-btn" onclick="buyProduct('headphones', 0.3, 'headphones-sold')">Buy Now</button>
                 </div>
 
                 <div class="product-card pulse">
                     <div class="product-icon">🎧</div>
                     <div class="product-price">0.1 TON</div>
-                    <div class="product-stock">Stock: <span id="headphones-sold">0</span>/800000000000000000000000000900000006785609788567938609268y2775613745813756697856874000</div>
-                    <button class="buy-btn" onclick="buyProduct('headphones', 0.3, 'headphones-sold')">Buy with TON</button>
+                    <div class="product-stock">Stock: <span id="earphones-sold">0</span>/<span id="earphones-total">100000</span></div>
+                    <button class="buy-btn" onclick="buyProduct('earphones', 0.1, 'earphones-sold')">Buy Now</button>
                 </div>
 
                 <div class="product-card pulse">
                     <div class="product-icon">📱</div>
                     <div class="product-price">1.2 TON</div>
-                    <div class="product-stock">Stock: <span id="phone-sold">0</span>/5000</div>
-                    <button class="buy-btn" onclick="buyProduct('phone', 1.2, 'phone-sold')">Buy with TON</button>
+                    <div class="product-stock">Stock: <span id="phone-sold">0</span>/<span id="phone-total">5000</span></div>
+                    <button class="buy-btn" onclick="buyProduct('phone', 1.2, 'phone-sold')">Buy Now</button>
                 </div>
 
                 <div class="product-card pulse">
                     <div class="product-icon">💎</div>
                     <div class="product-price">2.5 TON</div>
-                    <div class="product-stock">Stock: <span id="diamond-sold">0</span>/5000</div>
-                    <button class="buy-btn" onclick="buyProduct('diamond', 2.5, 'diamond-sold')">Buy with TON</button>
+                    <div class="product-stock">Stock: <span id="diamond-sold">0</span>/<span id="diamond-total">5000</span></div>
+                    <button class="buy-btn" onclick="buyProduct('diamond', 2.5, 'diamond-sold')">Buy Now</button>
                 </div>
 
                 <div class="product-card pulse">
                     <div class="product-icon">🎮</div>
                     <div class="product-price">0.8 TON</div>
-                    <div class="product-stock">Stock: <span id="game-sold">0</span>/5000</div>
-                    <button class="buy-btn" onclick="buyProduct('game', 0.8, 'game-sold')">Buy with TON</button>
+                    <div class="product-stock">Stock: <span id="game-sold">0</span>/<span id="game-total">5000</span></div>
+                    <button class="buy-btn" onclick="buyProduct('game', 0.8, 'game-sold')">Buy Now</button>
                 </div>
 
                 <div class="product-card pulse">
                     <div class="product-icon">🎒</div>
                     <div class="product-price">0.6 TON</div>
-                    <div class="product-stock">Stock: <span id="bag-sold">0</span>/5000</div>
-                    <button class="buy-btn" onclick="buyProduct('bag', 0.6, 'bag-sold')">Buy with TON</button>
+                    <div class="product-stock">Stock: <span id="bag-sold">0</span>/<span id="bag-total">5000</span></div>
+                    <button class="buy-btn" onclick="buyProduct('bag', 0.6, 'bag-sold')">Buy Now</button>
                 </div>
             </div>
 
@@ -440,14 +471,14 @@
                         <div class="product-icon">🎁</div>
                         <div class="product-price">FREE</div>
                         <div class="product-stock">Available: <span id="gift1-available">1000000</span></div>
-                        <button class="buy-btn collect-btn" onclick="collectFree('gift1', 10, 'gift1-available')">Collect</button>
+                        <button class="buy-btn collect-btn" onclick="collectFree('gift1', 10, 'gift1-available')">Collect Now</button>
                     </div>
 
                     <div class="product-card">
                         <div class="product-icon">🏆</div>
                         <div class="product-price">FREE</div>
                         <div class="product-stock">Available: <span id="gift2-available">2000000</span></div>
-                        <button class="buy-btn collect-btn" onclick="collectFree('gift2', 25, 'gift2-available')">Collect</button>
+                        <button class="buy-btn collect-btn" onclick="collectFree('gift2', 25, 'gift2-available')">Collect Now</button>
                     </div>
                 </div>
             </div>
@@ -462,70 +493,35 @@
 
             <div class="tasks-section">
                 <div class="tasks-title">Complete Tasks</div>
-
-                
-                
                 <div class="task-item">
                     <div class="task-info">
                         <div class="task-title">Subscribe YouTube Channel</div>
                         <div class="task-reward">+50 Points</div>
                     </div>
-                    <button class="task-btn" id="youtubeTask" onclick="completeTask('youtube', 50)">Open</button>
+                    <button class="task-btn" id="youtubeTask" onclick="completeTask('youtube', 50, 'https://youtube.com/@sk7technology')">Start</button>
                 </div>
-
-                        <!--MUNNA 33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333 -->
-                <div class="task-item">
-    <div class="task-info">
-        <div class="task-title">Subscribe YouTube Channel</div>
-        <div class="task-reward">+50 Points</div>
-    </div>
-    <button class="task-btn" id="youtubeTask" onclick="window.open('https://youtube.com/@sk7technology', '_blank'); completeTask('youtube', 50)">Open</button>
-</div>
-<div class="task-item">
-    <div class="task-info">
-        <div class="task-title">Follow Telegram Channel</div>
-        <div class="task-reward">+30 Points</div>
-    </div>
-    <button class="task-btn" id="telegramTask" onclick="window.open('https://t.me/MOMTECOMMUNITY', '_blank'); completeTask('telegram', 30)">Open</button>
-</div>
-<div class="task-item">
-    <div class="task-info">
-        <div class="task-title">Join Telegram Bot</div>
-        <div class="task-reward">+40 Points</div>
-    </div>
-    <button class="task-btn" id="botTask" onclick="window.open('https://t.me/jejbduiwjdbuejbot', '_blank'); completeTask('bot', 40)">Open</button>
-</div>
-
-
-
-
-                        <!--MUNNA 33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333 -->
-
-
-
                 <div class="task-item">
                     <div class="task-info">
                         <div class="task-title">Follow Telegram Channel</div>
                         <div class="task-reward">+30 Points</div>
                     </div>
-                    <button class="task-btn" id="telegramTask" onclick="completeTask('telegram', 30)">Open</button>
+                    <button class="task-btn" id="telegramTask" onclick="completeTask('telegram', 30, 'https://t.me/MOMTECOMMUNITY')">Start</button>
                 </div>
-
                 <div class="task-item">
                     <div class="task-info">
                         <div class="task-title">Join Telegram Bot</div>
                         <div class="task-reward">+40 Points</div>
                     </div>
-                    <button class="task-btn" id="botTask" onclick="completeTask('bot', 40)">Open</button>
+                    <button class="task-btn" id="botTask" onclick="completeTask('bot', 40, 'https://t.me/jejbduiwjdbuejbot')">Start</button>
                 </div>
             </div>
 
             <div class="referral-section">
                 <div class="tasks-title">Referral Program</div>
-                <p style="margin-bottom: 10px;">Share your referral link and earn 1 point for each friend (up to 50 friends)</p>
-                <div class="referral-link" id="referralLink">https://t.me/zambot?start=ref_12345</div>
+                <p style="margin-bottom: 10px;">Share your referral link and earn 1 point per friend (up to 50)</p>
+                <div class="referral-link" id="referralLink">@yourmomtebot?start=ref_0</div>
                 <div style="margin-bottom: 10px;">Referrals: <span id="referralCount">0</span>/50</div>
-                <button class="share-btn" onclick="shareReferral()">Share Referral Link</button>
+                <button class="share-btn" onclick="shareReferral()">Share Now</button>
             </div>
         </div>
 
@@ -569,35 +565,52 @@
         let completedTasks = {};
         let referralCount = 0;
         let stockCounts = {};
+        let telegramId = null;
 
         // TON Address
         const TON_ADDRESS = 'UQCC9TTHlJZLNH09baIi3UONk69UR-8YbedySf7F9sF-UJJl';
+        const API_URL = 'https://ashraful.munnacodsit.xyz/app/telegram.php';
 
         // Initialize app
-        function initApp() {
-            // Initialize Telegram WebApp
+        async function initApp() {
             if (window.Telegram && window.Telegram.WebApp) {
                 window.Telegram.WebApp.ready();
                 const user = window.Telegram.WebApp.initDataUnsafe?.user;
                 if (user) {
+                    telegramId = user.id;
                     document.getElementById('userName').textContent = user.first_name || 'User';
                     document.getElementById('userInfo').style.display = 'block';
+                    document.getElementById('referralLink').textContent = `@yourmomtebot?start=ref_${telegramId}`;
+                    await signupUser(telegramId, user.first_name || 'User');
+                    await loadUserData();
                 }
             }
-
-            // Load saved data
-            loadUserData();
             updateUI();
+        }
+
+        // Signup user
+        async function signupUser(telegramId, username) {
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `action=signup&telegram_id=${telegramId}&username=${encodeURIComponent(username)}`
+                });
+                const data = await response.json();
+                if (!data.success) {
+                    showNotification('Error signing up: ' + data.message);
+                }
+            } catch (e) {
+                showNotification('Error connecting to server');
+            }
         }
 
         // Section management
         function showSection(section) {
-            // Hide all sections
             document.getElementById('homeSection').style.display = 'none';
             document.getElementById('accountSection').style.display = 'none';
             document.getElementById('purchasedSection').style.display = 'none';
 
-            // Show selected section
             if (section === 'home') {
                 document.getElementById('homeSection').style.display = 'block';
             } else if (section === 'account') {
@@ -611,118 +624,120 @@
         }
 
         // Buy product function
-        function buyProduct(productName, price, stockId) {
+        async function buyProduct(productName, price, stockId) {
             showNotification('Redirecting to TON Wallet...');
-            
-            // Show loading modal
             document.getElementById('purchaseModal').style.display = 'flex';
 
-            // Create TON payment URL
             const amount = price * 1000000000; // Convert to nanotons
             const tonPaymentUrl = `ton://transfer/${TON_ADDRESS}?amount=${amount}&text=Purchase_${productName}_${Date.now()}`;
-            
-            // Simulate payment process
-            setTimeout(() => {
-                document.getElementById('purchaseModal').style.display = 'none';
-                
-                // Add to purchased items
-                purchasedItems.push({
-                    name: productName,
-                    price: price,
-                    date: new Date().toLocaleDateString(),
-                    id: Date.now()
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `action=buy_product&telegram_id=${telegramId}&product_name=${productName}&price=${price}&stock_id=${stockId}`
                 });
-
-                // Update stock count
-                const stockElement = document.getElementById(stockId);
-                if (stockElement) {
-                    const currentSold = parseInt(stockElement.textContent);
-                    stockElement.textContent = currentSold + 1;
+                const data = await response.json();
+                if (data.success) {
+                    purchasedItems.push({
+                        name: productName,
+                        price: price,
+                        date: new Date().toLocaleString(),
+                        status: 'approved' // Automatically set to approved
+                    });
+                    const stockElement = document.getElementById(stockId);
+                    if (stockElement) {
+                        const currentSold = parseInt(stockElement.textContent);
+                        stockElement.textContent = currentSold + 1;
+                    }
+                    showNotification('Purchase completed! Check My Items.');
+                    try {
+                        window.open(tonPaymentUrl, '_blank');
+                    } catch (e) {
+                        console.log('Could not open TON wallet automatically');
+                    }
+                    updatePurchasedItems(); // Update immediately
+                } else {
+                    showNotification('Error processing purchase: ' + data.message);
                 }
+            } catch (e) {
+                showNotification('Error connecting to server');
+            }
 
-                showNotification('Purchase successful! Check My Items.');
-                saveUserData();
-                
-                // Try to open TON wallet (this may not work in all environments)
-                try {
-                    window.open(tonPaymentUrl, '_blank');
-                } catch (e) {
-                    console.log('Could not open TON wallet automatically');
-                }
-            }, 2000);
+            document.getElementById('purchaseModal').style.display = 'none';
         }
 
         // Collect free items
         function collectFree(itemName, points, availableId) {
             const availableElement = document.getElementById(availableId);
             const currentAvailable = parseInt(availableElement.textContent);
-            
+
             if (currentAvailable > 0) {
-                userBalance += points;
                 availableElement.textContent = currentAvailable - 1;
-                
-                // Change button to confirm
                 const button = event.target;
                 button.textContent = 'Confirmed';
-                button.style.background = '#10b981';
+                button.style.background = '#10B981';
                 button.disabled = true;
-                
+
                 setTimeout(() => {
-                    button.textContent = 'Collect';
-                    button.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    button.textContent = 'Collect Now';
+                    button.style.background = 'linear-gradient(135deg, #10B981, #059669)';
                     button.disabled = false;
                 }, 3000);
 
                 showNotification(`+${points} points collected!`);
-                updateUI();
-                saveUserData();
             }
         }
 
         // Complete tasks
-        function completeTask(taskType, reward) {
+        async function completeTask(taskType, reward, link) {
             if (completedTasks[taskType]) {
                 showNotification('Task already completed!');
                 return;
             }
 
             const button = document.getElementById(taskType + 'Task');
-            
-            // Open respective links
-            if (taskType === 'youtube') {
-                window.open('https://youtube.com/@yourchannel', '_blank');
-            } else if (taskType === 'telegram') {
-                window.open('https://t.me/mtvip999', '_blank');
-            } else if (taskType === 'bot') {
-                window.open('https://t.me/yourbot', '_blank');
-            }
+            window.open(link, '_blank');
 
-            // Simulate task completion
-            setTimeout(() => {
-                userBalance += reward;
-                completedTasks[taskType] = true;
-                button.textContent = 'Completed';
-                button.classList.add('completed');
-                button.disabled = true;
-                
-                showNotification(`+${reward} points earned!`);
-                updateUI();
-                saveUserData();
-            }, 3000);
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `action=complete_task&telegram_id=${telegramId}&task_type=${taskType}&reward=${reward}`
+                });
+                const data = await response.json();
+                if (data.success) {
+                    userBalance = data.new_balance;
+                    completedTasks[taskType] = true;
+                    button.textContent = 'Completed';
+                    button.classList.add('completed');
+                    button.disabled = true;
+                    showNotification(`+${reward} points earned!`);
+                    updateUI();
+                } else {
+                    showNotification('Error completing task: ' + data.message);
+                }
+            } catch (e) {
+                showNotification('Error connecting to server');
+            }
         }
 
         // Referral system
         function shareReferral() {
-            const referralLink = document.getElementById('referralLink').textContent;
-            
+            const referralLink = `https://t.me/yourmomtebot?start=ref_${telegramId}`;
             if (navigator.share) {
                 navigator.share({
-                    title: 'Join Momte ',
-                    text: 'Get exclusive digital products with cryptocurrency!',
+                    title: 'Join Momte',
+                    text: 'Get exclusive digital products with cryptocurrency! Use my referral link:',
                     url: referralLink
+                }).then(() => {
+                    showNotification('Referral link shared!');
+                }).catch(() => {
+                    navigator.clipboard.writeText(referralLink).then(() => {
+                        showNotification('Referral link copied to clipboard!');
+                    });
                 });
             } else {
-                // Fallback - copy to clipboard
                 navigator.clipboard.writeText(referralLink).then(() => {
                     showNotification('Referral link copied to clipboard!');
                 });
@@ -732,25 +747,81 @@
         // Update purchased items display
         function updatePurchasedItems() {
             const container = document.getElementById('purchasedItems');
-            
+
             if (purchasedItems.length === 0) {
                 container.innerHTML = '<div class="purchased-item"><p>No purchases yet. Buy some products to see them here!</p></div>';
                 return;
             }
 
-            container.innerHTML = purchasedItems.map(item => `
-                <div class="purchased-item">
-                    <h4>${item.name.charAt(0).toUpperCase() + item.name.slice(1)}</h4>
-                    <p>Price: ${item.price} TON</p>
-                    <p>Date: ${item.date}</p>
-                </div>
-            `).join('');
+            container.innerHTML = purchasedItems
+                .filter(item => item.status === 'approved')
+                .map(item => `
+                    <div class="purchased-item">
+                        <h4>${item.name.charAt(0).toUpperCase() + item.name.slice(1)}</h4>
+                        <p>Price: ${item.price} TON</p>
+                        <p>Date: ${item.date}</p>
+                    </div>
+                `).join('');
         }
 
         // Update UI elements
         function updateUI() {
             document.getElementById('userBalance').textContent = userBalance;
             document.getElementById('referralCount').textContent = referralCount;
+
+            // Update task buttons
+            for (let taskType of Object.keys(completedTasks)) {
+                const button = document.getElementById(taskType + 'Task');
+                if (button && completedTasks[taskType]) {
+                    button.textContent = 'Completed';
+                    button.classList.add('completed');
+                    button.disabled = true;
+                }
+            }
+
+            // Update stock counts
+            for (let product of Object.keys(stockCounts)) {
+                const soldElement = document.getElementById(product + '-sold');
+                const totalElement = document.getElementById(product + '-total');
+                if (soldElement && totalElement) {
+                    soldElement.textContent = stockCounts[product].stock_sold || 0;
+                    totalElement.textContent = stockCounts[product].stock_total || 0;
+                }
+            }
+        }
+
+        // Load user data from backend
+        async function loadUserData() {
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `action=get_user_data&telegram_id=${telegramId}`
+                });
+                const data = await response.json();
+                userBalance = data.balance || 0;
+                purchasedItems = data.purchased_items.map(item => ({
+                    name: item.product_name,
+                    price: item.price,
+                    date: new Date(item.purchase_date).toLocaleString(),
+                    status: item.status
+                }));
+                completedTasks = {};
+                data.completed_tasks.forEach(task => {
+                    completedTasks[task] = true;
+                });
+                referralCount = data.referral_count || 0;
+                stockCounts = {};
+                data.stock_counts.forEach(stock => {
+                    stockCounts[stock.product_id] = {
+                        stock_sold: stock.stock_sold,
+                        stock_total: stock.stock_total
+                    };
+                });
+                updateUI();
+            } catch (e) {
+                showNotification('Error loading user data');
+            }
         }
 
         // Show notification
@@ -758,43 +829,9 @@
             const notification = document.getElementById('notification');
             notification.textContent = message;
             notification.classList.add('show');
-            
             setTimeout(() => {
                 notification.classList.remove('show');
-            }, 3000);
-        }
-
-        // Save user data to localStorage
-        function saveUserData() {
-            const userData = {
-                balance: userBalance,
-                purchased: purchasedItems,
-                completedTasks: completedTasks,
-                referralCount: referralCount,
-                stockCounts: stockCounts
-            };
-            
-            try {
-                // Note: In actual Telegram bot environment, you would save this data to your backend
-                console.log('Saving user data:', userData);
-            } catch (e) {
-                console.log('Could not save data');
-            }
-        }
-
-        // Load user data
-        function loadUserData() {
-            try {
-                // In actual implementation, load from your backend
-                // For demo purposes, we'll start with default values
-                userBalance = 0;
-                purchasedItems = [];
-                completedTasks = {};
-                referralCount = 0;
-                stockCounts = {};
-            } catch (e) {
-                console.log('Could not load user data');
-            }
+            }, 3500);
         }
 
         // Initialize app when page loads
