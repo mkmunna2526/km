@@ -33,7 +33,7 @@
         .header {
             background: linear-gradient(135deg, #4A90E2, #D81B60);
             color: white;
-            padding: 10px 25px; /* Reduced padding */
+            padding: 10px 25px;
             text-align: center;
             position: sticky;
             top: 0;
@@ -43,18 +43,18 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 2px; /* Reduced gap between logo, title, and user info */
+            gap: 2px;
         }
 
         .header .logo {
             width: 30px;
-            height: 30px; /* Reduced size */
-            background: url('logo-placeholder.png') no-repeat center/cover; /* Replace with your image */
+            height: 30px;
+            background: url('logo-placeholder.png') no-repeat center/cover;
             margin: 0;
         }
 
         .header h1 {
-            font-size: 20px; /* Reduced font size */
+            font-size: 20px;
             font-weight: 800;
             margin: 0;
             display: block;
@@ -65,7 +65,7 @@
             margin: 0;
             padding: 0;
             display: block;
-            font-size: 12px; /* Reduced font size */
+            font-size: 12px;
             opacity: 0.85;
             font-style: italic;
             max-width: 100%;
@@ -282,6 +282,16 @@
             background: #10B981;
         }
 
+        .task-btn.confirmed {
+            background: #FBBF24;
+            cursor: not-allowed;
+        }
+
+        .task-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
         .task-btn:hover {
             transform: scale(1.07);
         }
@@ -400,7 +410,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <div class="logo"></div>
             <h1>MOMTE</h1>
@@ -409,10 +418,8 @@
             </div>
         </div>
 
-        <!-- Main Content -->
         <div class="main-content" id="homeSection">
             <div class="products-grid">
-                <!-- Premium Products -->
                 <div class="product-card pulse">
                     <div class="product-icon">⌚</div>
                     <div class="product-price">0.5 TON</div>
@@ -463,7 +470,6 @@
                 </div>
             </div>
 
-            <!-- Free Products Section -->
             <div class="free-products">
                 <div class="free-title">🎁 Free Rewards</div>
                 <div class="products-grid">
@@ -484,7 +490,6 @@
             </div>
         </div>
 
-        <!-- Account Section -->
         <div class="account-section" id="accountSection">
             <div class="balance-card">
                 <div class="balance-amount" id="userBalance">0</div>
@@ -525,7 +530,6 @@
             </div>
         </div>
 
-        <!-- Purchased Section -->
         <div class="purchased-section" id="purchasedSection">
             <h2 style="margin-bottom: 20px;">My Purchases</h2>
             <h5 style="margin-bottom: 10px;">🔔 Important Notice – Product Purchase, Token Conversion & Redemption When you purchase a product using TON, it will be automatically added to your collection. After refreshing, the item will disappear from view — this means it has been securely stored and is eligible for future real-world redemption. Only products purchased with TON are valid. After our platform is officially listed, payment must be completed using the same TON wallet address originally used. No other method will be accepted. Your points balance (shown in tasks) will reset after each login, because those points are automatically converted into crypto (future utility tokens). After listing, you will be notified exactly how many tokens you’ve earned based on your activity. Real products will be redeemable in future using your verified TON wallet. Start collecting now — your rewards are real and your wallet is your key!🔗 Stay updated: Follow our official Telegram channel @MOMTECOMMUNITY</h5>
@@ -536,7 +540,6 @@
             </div>
         </div>
 
-        <!-- Bottom Navigation -->
         <div class="bottom-nav">
             <button class="nav-btn" onclick="showSection('home')">Home</button>
             <button class="nav-btn" onclick="showSection('account')">Account</button>
@@ -544,7 +547,6 @@
         </div>
     </div>
 
-    <!-- Purchase Modal -->
     <div class="modal" id="purchaseModal">
         <div class="modal-content">
             <h3>Processing Payment...</h3>
@@ -553,12 +555,10 @@
         </div>
     </div>
 
-    <!-- Notification -->
     <div class="notification" id="notification"></div>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-        // Global variables
         let userBalance = 0;
         let purchasedItems = [];
         let currentSection = 'home';
@@ -567,11 +567,9 @@
         let stockCounts = {};
         let telegramId = null;
 
-        // TON Address
         const TON_ADDRESS = 'UQCC9TTHlJZLNH09baIi3UONk69UR-8YbedySf7F9sF-UJJl';
         const API_URL = 'https://ashraful.munnacodsit.xyz/app/telegram.php';
 
-        // Initialize app
         async function initApp() {
             if (window.Telegram && window.Telegram.WebApp) {
                 window.Telegram.WebApp.ready();
@@ -588,7 +586,6 @@
             updateUI();
         }
 
-        // Signup user
         async function signupUser(telegramId, username) {
             try {
                 const response = await fetch(API_URL, {
@@ -605,7 +602,6 @@
             }
         }
 
-        // Section management
         function showSection(section) {
             document.getElementById('homeSection').style.display = 'none';
             document.getElementById('accountSection').style.display = 'none';
@@ -623,12 +619,11 @@
             currentSection = section;
         }
 
-        // Buy product function
         async function buyProduct(productName, price, stockId) {
             showNotification('Redirecting to TON Wallet...');
             document.getElementById('purchaseModal').style.display = 'flex';
 
-            const amount = price * 1000000000; // Convert to nanotons
+            const amount = price * 1000000000;
             const tonPaymentUrl = `ton://transfer/${TON_ADDRESS}?amount=${amount}&text=Purchase_${productName}_${Date.now()}`;
 
             try {
@@ -643,7 +638,7 @@
                         name: productName,
                         price: price,
                         date: new Date().toLocaleString(),
-                        status: 'approved' // Automatically set to approved
+                        status: 'approved'
                     });
                     const stockElement = document.getElementById(stockId);
                     if (stockElement) {
@@ -656,7 +651,7 @@
                     } catch (e) {
                         console.log('Could not open TON wallet automatically');
                     }
-                    updatePurchasedItems(); // Update immediately
+                    updatePurchasedItems();
                 } else {
                     showNotification('Error processing purchase: ' + data.message);
                 }
@@ -667,7 +662,6 @@
             document.getElementById('purchaseModal').style.display = 'none';
         }
 
-        // Collect free items
         function collectFree(itemName, points, availableId) {
             const availableElement = document.getElementById(availableId);
             const currentAvailable = parseInt(availableElement.textContent);
@@ -676,27 +670,29 @@
                 availableElement.textContent = currentAvailable - 1;
                 const button = event.target;
                 button.textContent = 'Confirmed';
-                button.style.background = '#10B981';
+                button.classList.add('confirmed');
                 button.disabled = true;
 
                 setTimeout(() => {
-                    button.textContent = 'Collect Now';
-                    button.style.background = 'linear-gradient(135deg, #10B981, #059669)';
-                    button.disabled = false;
-                }, 3000);
+                    button.textContent = 'Completed';
+                    button.classList.add('completed');
+                    button.disabled = true;
+                }, 2000);
 
                 showNotification(`+${points} points collected!`);
             }
         }
 
-        // Complete tasks
         async function completeTask(taskType, reward, link) {
-            if (completedTasks[taskType]) {
-                showNotification('Task already completed!');
+            const button = document.getElementById(taskType + 'Task');
+            if (button.classList.contains('confirmed') || button.classList.contains('completed')) {
+                showNotification('Task already processed!');
                 return;
             }
 
-            const button = document.getElementById(taskType + 'Task');
+            button.textContent = 'Confirmed';
+            button.classList.add('confirmed');
+            button.disabled = true;
             window.open(link, '_blank');
 
             try {
@@ -707,22 +703,26 @@
                 });
                 const data = await response.json();
                 if (data.success) {
-                    userBalance = data.new_balance;
+                    userBalance += reward;
                     completedTasks[taskType] = true;
                     button.textContent = 'Completed';
                     button.classList.add('completed');
-                    button.disabled = true;
                     showNotification(`+${reward} points earned!`);
                     updateUI();
                 } else {
+                    button.textContent = 'Start';
+                    button.classList.remove('confirmed');
+                    button.disabled = false;
                     showNotification('Error completing task: ' + data.message);
                 }
             } catch (e) {
+                button.textContent = 'Start';
+                button.classList.remove('confirmed');
+                button.disabled = false;
                 showNotification('Error connecting to server');
             }
         }
 
-        // Referral system
         function shareReferral() {
             const referralLink = `https://t.me/yourmomtebot?start=ref_${telegramId}`;
             if (navigator.share) {
@@ -744,7 +744,6 @@
             }
         }
 
-        // Update purchased items display
         function updatePurchasedItems() {
             const container = document.getElementById('purchasedItems');
 
@@ -764,12 +763,10 @@
                 `).join('');
         }
 
-        // Update UI elements
         function updateUI() {
             document.getElementById('userBalance').textContent = userBalance;
             document.getElementById('referralCount').textContent = referralCount;
 
-            // Update task buttons
             for (let taskType of Object.keys(completedTasks)) {
                 const button = document.getElementById(taskType + 'Task');
                 if (button && completedTasks[taskType]) {
@@ -779,7 +776,6 @@
                 }
             }
 
-            // Update stock counts
             for (let product of Object.keys(stockCounts)) {
                 const soldElement = document.getElementById(product + '-sold');
                 const totalElement = document.getElementById(product + '-total');
@@ -790,7 +786,6 @@
             }
         }
 
-        // Load user data from backend
         async function loadUserData() {
             try {
                 const response = await fetch(API_URL, {
@@ -824,7 +819,6 @@
             }
         }
 
-        // Show notification
         function showNotification(message) {
             const notification = document.getElementById('notification');
             notification.textContent = message;
@@ -834,15 +828,10 @@
             }, 3500);
         }
 
-        // Initialize app when page loads
         document.addEventListener('DOMContentLoaded', initApp);
 
-        // Handle Telegram WebApp events
         if (window.Telegram && window.Telegram.WebApp) {
-            window.Telegram.WebApp.onEvent('mainButtonClicked', function() {
-                // Handle main button clicks
-            });
-
+            window.Telegram.WebApp.onEvent('mainButtonClicked', function() {});
             window.Telegram.WebApp.onEvent('backButtonClicked', function() {
                 if (currentSection !== 'home') {
                     showSection('home');
