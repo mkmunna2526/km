@@ -33,7 +33,7 @@
         .header {
             background: linear-gradient(135deg, #4A90E2, #D81B60);
             color: white;
-            padding: 10px 25px;
+            padding: 15px 25px;
             text-align: center;
             position: sticky;
             top: 0;
@@ -43,31 +43,37 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 2px;
+            gap: 5px;
         }
 
         .header .logo {
-            width: 30px;
-            height: 30px;
-            background: url('logo-placeholder.png') no-repeat center/cover;
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
             margin: 0;
         }
 
         .header h1 {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
             margin: 0;
             display: block;
         }
 
         .header .user-info {
-            background: none;
+            background: rgba(255,255,255,0.15);
             margin: 0;
-            padding: 0;
+            padding: 8px 15px;
             display: block;
-            font-size: 12px;
-            opacity: 0.85;
-            font-style: italic;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
             max-width: 100%;
             white-space: nowrap;
             overflow: hidden;
@@ -96,6 +102,7 @@
             position: relative;
             overflow: hidden;
             background: linear-gradient(135deg, #ffffff 70%, #E6F0FA 100%);
+            cursor: pointer;
         }
 
         .product-card:hover {
@@ -406,67 +413,91 @@
         .notification.show {
             transform: translateX(0);
         }
+
+        .telegram-id-display {
+            background: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            opacity: 0.9;
+            margin-top: 3px;
+        }
+
+        .wallet-connect-btn {
+            background: linear-gradient(135deg, #0088CC, #005580);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo"></div>
+            <div class="logo">💎</div>
             <h1>MOMTE</h1>
             <div class="user-info" id="userInfo">
                 <span id="userName">Guest User</span>
+                <div class="telegram-id-display" id="telegramIdDisplay" style="display: none;">
+                    ID: <span id="telegramIdSpan">000000</span>
+                </div>
             </div>
         </div>
 
         <div class="main-content" id="homeSection">
             <div class="products-grid">
-                <div class="product-card pulse">
+                <div class="product-card pulse" onclick="buyProduct('watch', 0.5, 'watch-sold', '⌚ Smart Watch')">
                     <div class="product-icon">⌚</div>
                     <div class="product-price">0.5 TON</div>
                     <div class="product-stock">Stock: <span id="watch-sold">0</span>/<span id="watch-total">50000</span></div>
-                    <button class="buy-btn" onclick="buyProduct('watch', 0.5, 'watch-sold')">Buy Now</button>
+                    <button class="buy-btn">Buy Now</button>
                 </div>
 
-                <div class="product-card pulse">
+                <div class="product-card pulse" onclick="buyProduct('key', 0.3, 'headphones-sold', '🔑 Premium Key')">
                     <div class="product-icon">🔑</div>
                     <div class="product-price">0.3 TON</div>
                     <div class="product-stock">Stock: <span id="headphones-sold">0</span>/<span id="headphones-total">5000</span></div>
-                    <button class="buy-btn" onclick="buyProduct('headphones', 0.3, 'headphones-sold')">Buy Now</button>
+                    <button class="buy-btn">Buy Now</button>
                 </div>
 
-                <div class="product-card pulse">
+                <div class="product-card pulse" onclick="buyProduct('headphones', 0.1, 'earphones-sold', '🎧 Wireless Headphones')">
                     <div class="product-icon">🎧</div>
                     <div class="product-price">0.1 TON</div>
                     <div class="product-stock">Stock: <span id="earphones-sold">0</span>/<span id="earphones-total">100000</span></div>
-                    <button class="buy-btn" onclick="buyProduct('earphones', 0.1, 'earphones-sold')">Buy Now</button>
+                    <button class="buy-btn">Buy Now</button>
                 </div>
 
-                <div class="product-card pulse">
+                <div class="product-card pulse" onclick="buyProduct('phone', 1.2, 'phone-sold', '📱 Smartphone')">
                     <div class="product-icon">📱</div>
                     <div class="product-price">1.2 TON</div>
                     <div class="product-stock">Stock: <span id="phone-sold">0</span>/<span id="phone-total">5000</span></div>
-                    <button class="buy-btn" onclick="buyProduct('phone', 1.2, 'phone-sold')">Buy Now</button>
+                    <button class="buy-btn">Buy Now</button>
                 </div>
 
-                <div class="product-card pulse">
+                <div class="product-card pulse" onclick="buyProduct('diamond', 2.5, 'diamond-sold', '💎 Premium Diamond')">
                     <div class="product-icon">💎</div>
                     <div class="product-price">2.5 TON</div>
                     <div class="product-stock">Stock: <span id="diamond-sold">0</span>/<span id="diamond-total">5000</span></div>
-                    <button class="buy-btn" onclick="buyProduct('diamond', 2.5, 'diamond-sold')">Buy Now</button>
+                    <button class="buy-btn">Buy Now</button>
                 </div>
 
-                <div class="product-card pulse">
+                <div class="product-card pulse" onclick="buyProduct('game', 0.8, 'game-sold', '🎮 Gaming Console')">
                     <div class="product-icon">🎮</div>
                     <div class="product-price">0.8 TON</div>
                     <div class="product-stock">Stock: <span id="game-sold">0</span>/<span id="game-total">5000</span></div>
-                    <button class="buy-btn" onclick="buyProduct('game', 0.8, 'game-sold')">Buy Now</button>
+                    <button class="buy-btn">Buy Now</button>
                 </div>
 
-                <div class="product-card pulse">
+                <div class="product-card pulse" onclick="buyProduct('bag', 0.6, 'bag-sold', '🎒 Premium Backpack')">
                     <div class="product-icon">🎒</div>
                     <div class="product-price">0.6 TON</div>
                     <div class="product-stock">Stock: <span id="bag-sold">0</span>/<span id="bag-total">5000</span></div>
-                    <button class="buy-btn" onclick="buyProduct('bag', 0.6, 'bag-sold')">Buy Now</button>
+                    <button class="buy-btn">Buy Now</button>
                 </div>
             </div>
 
@@ -532,7 +563,7 @@
 
         <div class="purchased-section" id="purchasedSection">
             <h2 style="margin-bottom: 20px;">My Purchases</h2>
-            <h5 style="margin-bottom: 10px;">🔔 Important Notice – Product Purchase, Token Conversion & Redemption When you purchase a product using TON, it will be automatically added to your collection. After refreshing, the item will disappear from view — this means it has been securely stored and is eligible for future real-world redemption. Only products purchased with TON are valid. After our platform is officially listed, payment must be completed using the same TON wallet address originally used. No other method will be accepted. Your points balance (shown in tasks) will reset after each login, because those points are automatically converted into crypto (future utility tokens). After listing, you will be notified exactly how many tokens you’ve earned based on your activity. Real products will be redeemable in future using your verified TON wallet. Start collecting now — your rewards are real and your wallet is your key!🔗 Stay updated: Follow our official Telegram channel @MOMTECOMMUNITY</h5>
+            <h5 style="margin-bottom: 10px;">🔔 Important Notice – Product Purchase, Token Conversion & Redemption When you purchase a product using TON, it will be automatically added to your collection. After refreshing, the item will disappear from view — this means it has been securely stored and is eligible for future real-world redemption. Only products purchased with TON are valid. After our platform is officially listed, payment must be completed using the same TON wallet address originally used. No other method will be accepted. Your points balance (shown in tasks) will reset after each login, because those points are automatically converted into crypto (future utility tokens). After listing, you will be notified exactly how many tokens you've earned based on your activity. Real products will be redeemable in future using your verified TON wallet. Start collecting now — your rewards are real and your wallet is your key!🔗 Stay updated: Follow our official Telegram channel @MOMTECOMMUNITY</h5>
             <div id="purchasedItems">
                 <div class="purchased-item">
                     <p>No purchases yet. Buy some products to see them here!</p>
@@ -549,9 +580,10 @@
 
     <div class="modal" id="purchaseModal">
         <div class="modal-content">
-            <h3>Processing Payment...</h3>
+            <h3>Opening TonKeeper Wallet...</h3>
             <div class="loading" style="margin: 20px 0;"></div>
-            <p>Redirecting to TON Wallet...</p>
+            <p>Please complete your payment in TonKeeper</p>
+            <button onclick="closePurchaseModal()" style="margin-top: 15px; padding: 8px 16px; background: #4A90E2; color: white; border: none; border-radius: 8px; cursor: pointer;">Close</button>
         </div>
     </div>
 
@@ -566,26 +598,62 @@
         let referralCount = 0;
         let stockCounts = {};
         let telegramId = null;
+        let userName = 'Guest User';
 
         const TON_ADDRESS = 'UQCC9TTHlJZLNH09baIi3UONk69UR-8YbedySf7F9sF-UJJl';
         const API_URL = 'https://ashraful.munnacodsit.xyz/app/telegram.php';
 
+        // TonKeeper deep link function
+        function createTonKeeperLink(recipient, amount, message) {
+            // Convert TON to nanoTON (1 TON = 1,000,000,000 nanoTON)
+            const nanoAmount = Math.floor(amount * 1000000000);
+            
+            // Create the TonKeeper deep link
+            const tonKeeperLink = `https://app.tonkeeper.com/transfer/${recipient}?amount=${nanoAmount}&text=${encodeURIComponent(message)}`;
+            
+            return tonKeeperLink;
+        }
+
+        // Initialize app
         async function initApp() {
+            console.log('Initializing app...');
+            
             if (window.Telegram && window.Telegram.WebApp) {
-                window.Telegram.WebApp.ready();
-                const user = window.Telegram.WebApp.initDataUnsafe?.user;
-                if (user) {
-                    telegramId = user.id;
-                    document.getElementById('userName').textContent = user.first_name || 'User';
-                    document.getElementById('userInfo').style.display = 'block';
-                    document.getElementById('referralLink').textContent = `@yourmomtebot?start=ref_${telegramId}`;
-                    await signupUser(telegramId, user.first_name || 'User');
-                    await loadUserData();
+                try {
+                    window.Telegram.WebApp.ready();
+                    const user = window.Telegram.WebApp.initDataUnsafe?.user;
+                    
+                    if (user) {
+                        telegramId = user.id;
+                        userName = user.first_name || user.username || 'User';
+                        
+                        // Update UI with user info
+                        document.getElementById('userName').textContent = userName;
+                        document.getElementById('telegramIdSpan').textContent = telegramId;
+                        document.getElementById('telegramIdDisplay').style.display = 'block';
+                        document.getElementById('userInfo').style.display = 'block';
+                        document.getElementById('referralLink').textContent = `@yourmomtebot?start=ref_${telegramId}`;
+                        
+                        // Sign up user
+                        await signupUser(telegramId, userName);
+                        await loadUserData();
+                        
+                        showNotification(`Welcome ${userName}! ID: ${telegramId}`);
+                    } else {
+                        showNotification('Please open this app through Telegram');
+                    }
+                } catch (error) {
+                    console.error('Telegram initialization error:', error);
+                    showNotification('Error initializing Telegram connection');
                 }
+            } else {
+                showNotification('This app works best in Telegram');
             }
+            
             updateUI();
         }
 
+        // Sign up user
         async function signupUser(telegramId, username) {
             try {
                 const response = await fetch(API_URL, {
@@ -595,13 +663,14 @@
                 });
                 const data = await response.json();
                 if (!data.success) {
-                    showNotification('Error signing up: ' + data.message);
+                    console.error('Signup error:', data.message);
                 }
             } catch (e) {
-                showNotification('Error connecting to server');
+                console.error('Network error during signup:', e);
             }
         }
 
+        // Show section
         function showSection(section) {
             document.getElementById('homeSection').style.display = 'none';
             document.getElementById('accountSection').style.display = 'none';
@@ -619,49 +688,82 @@
             currentSection = section;
         }
 
-        async function buyProduct(productName, price, stockId) {
-            showNotification('Redirecting to TON Wallet...');
-            document.getElementById('purchaseModal').style.display = 'flex';
-
-            const amount = price * 1000000000;
-            const tonPaymentUrl = `ton://transfer/${TON_ADDRESS}?amount=${amount}&text=Purchase_${productName}_${Date.now()}`;
+        // Buy product with TonKeeper integration
+        async function buyProduct(productName, price, stockId, productDisplayName) {
+            if (!telegramId) {
+                showNotification('Please login through Telegram first!');
+                return;
+            }
 
             try {
+                // Show processing modal
+                document.getElementById('purchaseModal').style.display = 'flex';
+                
+                // Create purchase message
+                const purchaseMessage = `Purchase_${productName}_${Date.now()}_${telegramId}`;
+                
+                // Create TonKeeper link
+                const tonKeeperLink = createTonKeeperLink(TON_ADDRESS, price, purchaseMessage);
+                
+                showNotification(`Opening TonKeeper for ${productDisplayName || productName}...`);
+                
+                // Try to open TonKeeper
+                setTimeout(() => {
+                    try {
+                        window.open(tonKeeperLink, '_blank');
+                        showNotification('Complete payment in TonKeeper to finish purchase');
+                    } catch (error) {
+                        console.error('Error opening TonKeeper:', error);
+                        showNotification('Please install TonKeeper wallet app');
+                        // Fallback: copy link to clipboard
+                        navigator.clipboard.writeText(tonKeeperLink).then(() => {
+                            showNotification('TonKeeper link copied to clipboard!');
+                        });
+                    }
+                }, 1000);
+
+                // Record purchase attempt
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `action=buy_product&telegram_id=${telegramId}&product_name=${productName}&price=${price}&stock_id=${stockId}`
+                    body: `action=buy_product&telegram_id=${telegramId}&product_name=${productName}&price=${price}&stock_id=${stockId}&message=${encodeURIComponent(purchaseMessage)}`
                 });
+                
                 const data = await response.json();
                 if (data.success) {
+                    // Add to purchased items
                     purchasedItems.push({
-                        name: productName,
+                        name: productDisplayName || productName,
                         price: price,
                         date: new Date().toLocaleString(),
-                        status: 'approved'
+                        status: 'pending',
+                        message: purchaseMessage
                     });
+                    
+                    // Update stock count
                     const stockElement = document.getElementById(stockId);
                     if (stockElement) {
                         const currentSold = parseInt(stockElement.textContent);
                         stockElement.textContent = currentSold + 1;
                     }
-                    showNotification('Purchase completed! Check My Items.');
-                    try {
-                        window.open(tonPaymentUrl, '_blank');
-                    } catch (e) {
-                        console.log('Could not open TON wallet automatically');
-                    }
+                    
                     updatePurchasedItems();
                 } else {
-                    showNotification('Error processing purchase: ' + data.message);
+                    showNotification('Error: ' + (data.message || 'Purchase failed'));
                 }
-            } catch (e) {
-                showNotification('Error connecting to server');
+                
+            } catch (error) {
+                console.error('Purchase error:', error);
+                showNotification('Error processing purchase');
             }
+        }
 
+        // Close purchase modal
+        function closePurchaseModal() {
             document.getElementById('purchaseModal').style.display = 'none';
         }
 
+        // Collect free items
         function collectFree(itemName, points, availableId) {
             const availableElement = document.getElementById(availableId);
             const currentAvailable = parseInt(availableElement.textContent);
@@ -679,10 +781,13 @@
                     button.disabled = true;
                 }, 2000);
 
+                userBalance += points;
+                updateUI();
                 showNotification(`+${points} points collected!`);
             }
         }
 
+        // Complete task
         async function completeTask(taskType, reward, link) {
             const button = document.getElementById(taskType + 'Task');
             if (button.classList.contains('confirmed') || button.classList.contains('completed')) {
@@ -690,9 +795,16 @@
                 return;
             }
 
+            if (!telegramId) {
+                showNotification('Please login through Telegram first!');
+                return;
+            }
+
             button.textContent = 'Confirmed';
             button.classList.add('confirmed');
             button.disabled = true;
+            
+            // Open task link
             window.open(link, '_blank');
 
             try {
@@ -723,27 +835,54 @@
             }
         }
 
+        // Share referral
         function shareReferral() {
+            if (!telegramId) {
+                showNotification('Please login through Telegram first!');
+                return;
+            }
+
             const referralLink = `https://t.me/yourmomtebot?start=ref_${telegramId}`;
+            const shareText = `🎁 Join Momte and get exclusive digital products with TON cryptocurrency! 💎\n\nUse my referral link: ${referralLink}`;
+
             if (navigator.share) {
                 navigator.share({
-                    title: 'Join Momte',
-                    text: 'Get exclusive digital products with cryptocurrency! Use my referral link:',
+                    title: 'Join Momte - Digital Products with TON',
+                    text: shareText,
                     url: referralLink
                 }).then(() => {
                     showNotification('Referral link shared!');
                 }).catch(() => {
-                    navigator.clipboard.writeText(referralLink).then(() => {
-                        showNotification('Referral link copied to clipboard!');
-                    });
+                    copyToClipboard(shareText);
                 });
             } else {
-                navigator.clipboard.writeText(referralLink).then(() => {
-                    showNotification('Referral link copied to clipboard!');
-                });
+                copyToClipboard(shareText);
             }
         }
 
+        // Copy to clipboard helper
+        function copyToClipboard(text) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showNotification('Referral link copied to clipboard!');
+                });
+            } else {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showNotification('Referral link copied to clipboard!');
+                } catch (err) {
+                    showNotification('Please copy the link manually');
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        // Update purchased items display
         function updatePurchasedItems() {
             const container = document.getElementById('purchasedItems');
 
@@ -752,21 +891,23 @@
                 return;
             }
 
-            container.innerHTML = purchasedItems
-                .filter(item => item.status === 'approved')
-                .map(item => `
-                    <div class="purchased-item">
-                        <h4>${item.name.charAt(0).toUpperCase() + item.name.slice(1)}</h4>
-                        <p>Price: ${item.price} TON</p>
-                        <p>Date: ${item.date}</p>
-                    </div>
-                `).join('');
+            container.innerHTML = purchasedItems.map(item => `
+                <div class="purchased-item">
+                    <h4>${item.name}</h4>
+                    <p>Price: ${item.price} TON</p>
+                    <p>Date: ${item.date}</p>
+                    <p>Status: <span style="color: ${item.status === 'approved' ? '#10B981' : item.status === 'pending' ? '#FBBF24' : '#DC2626'}; font-weight: 600; text-transform: uppercase;">${item.status}</span></p>
+                    ${item.message ? `<p style="font-size: 12px; color: #666; font-family: monospace;">${item.message}</p>` : ''}
+                </div>
+            `).join('');
         }
 
+        // Update UI
         function updateUI() {
-            document.getElementById('userBalance').textContent = userBalance;
+            document.getElementById('userBalance').textContent = userBalance.toLocaleString();
             document.getElementById('referralCount').textContent = referralCount;
 
+            // Update completed tasks
             for (let taskType of Object.keys(completedTasks)) {
                 const button = document.getElementById(taskType + 'Task');
                 if (button && completedTasks[taskType]) {
@@ -776,6 +917,7 @@
                 }
             }
 
+            // Update stock counts
             for (let product of Object.keys(stockCounts)) {
                 const soldElement = document.getElementById(product + '-sold');
                 const totalElement = document.getElementById(product + '-total');
@@ -786,7 +928,10 @@
             }
         }
 
+        // Load user data
         async function loadUserData() {
+            if (!telegramId) return;
+
             try {
                 const response = await fetch(API_URL, {
                     method: 'POST',
@@ -794,50 +939,112 @@
                     body: `action=get_user_data&telegram_id=${telegramId}`
                 });
                 const data = await response.json();
-                userBalance = data.balance || 0;
-                purchasedItems = data.purchased_items.map(item => ({
-                    name: item.product_name,
-                    price: item.price,
-                    date: new Date(item.purchase_date).toLocaleString(),
-                    status: item.status
-                }));
-                completedTasks = {};
-                data.completed_tasks.forEach(task => {
-                    completedTasks[task] = true;
-                });
-                referralCount = data.referral_count || 0;
-                stockCounts = {};
-                data.stock_counts.forEach(stock => {
-                    stockCounts[stock.product_id] = {
-                        stock_sold: stock.stock_sold,
-                        stock_total: stock.stock_total
-                    };
-                });
-                updateUI();
+                
+                if (data.success) {
+                    userBalance = data.balance || 0;
+                    
+                    // Load purchased items
+                    if (data.purchased_items && Array.isArray(data.purchased_items)) {
+                        purchasedItems = data.purchased_items.map(item => ({
+                            name: item.product_name,
+                            price: item.price,
+                            date: new Date(item.purchase_date).toLocaleString(),
+                            status: item.status || 'pending',
+                            message: item.message || ''
+                        }));
+                    }
+                    
+                    // Load completed tasks
+                    completedTasks = {};
+                    if (data.completed_tasks && Array.isArray(data.completed_tasks)) {
+                        data.completed_tasks.forEach(task => {
+                            completedTasks[task] = true;
+                        });
+                    }
+                    
+                    referralCount = data.referral_count || 0;
+                    
+                    // Load stock counts
+                    stockCounts = {};
+                    if (data.stock_counts && Array.isArray(data.stock_counts)) {
+                        data.stock_counts.forEach(stock => {
+                            stockCounts[stock.product_id] = {
+                                stock_sold: stock.stock_sold,
+                                stock_total: stock.stock_total
+                            };
+                        });
+                    }
+                    
+                    updateUI();
+                } else {
+                    console.error('Error loading user data:', data.message);
+                }
             } catch (e) {
-                showNotification('Error loading user data');
+                console.error('Network error loading user data:', e);
             }
         }
 
+        // Show notification
         function showNotification(message) {
             const notification = document.getElementById('notification');
             notification.textContent = message;
             notification.classList.add('show');
             setTimeout(() => {
                 notification.classList.remove('show');
-            }, 3500);
+            }, 4000);
         }
 
+        // Event listeners
         document.addEventListener('DOMContentLoaded', initApp);
 
+        // Telegram WebApp event handlers
         if (window.Telegram && window.Telegram.WebApp) {
-            window.Telegram.WebApp.onEvent('mainButtonClicked', function() {});
+            window.Telegram.WebApp.onEvent('mainButtonClicked', function() {
+                console.log('Main button clicked');
+            });
+            
             window.Telegram.WebApp.onEvent('backButtonClicked', function() {
                 if (currentSection !== 'home') {
                     showSection('home');
+                } else {
+                    window.Telegram.WebApp.close();
                 }
             });
+            
+            // Expand the app
+            window.Telegram.WebApp.expand();
+            
+            // Enable closing confirmation
+            window.Telegram.WebApp.enableClosingConfirmation();
         }
+
+        // Auto-refresh user data every 30 seconds
+        setInterval(() => {
+            if (telegramId) {
+                loadUserData();
+            }
+        }, 30000);
+
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && telegramId) {
+                loadUserData();
+            }
+        });
+
+        // Handle errors globally
+        window.addEventListener('error', function(e) {
+            console.error('Global error:', e.error);
+            showNotification('An error occurred. Please try again.');
+        });
+
+        // Handle unhandled promise rejections
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('Unhandled promise rejection:', e.reason);
+            showNotification('Connection error. Please check your internet.');
+        });
+
+        console.log('Momte app initialized successfully');
     </script>
 </body>
 </html>
