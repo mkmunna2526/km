@@ -439,7 +439,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo"></div>
+            <div class="logo">💎</div>
             <h1>MOMTE</h1>
             <div class="user-info" id="userInfo">
                 <span id="userName">Guest User</span>
@@ -458,23 +458,23 @@
                     <button class="buy-btn">Buy Now</button>
                 </div>
 
-                <div class="product-card pulse" onclick="buyProduct('key', 3, 'headphones-sold', '🔑 Premium Key')">
+                <div class="product-card pulse" onclick="buyProduct('key', 7, 'key-sold', '🔑 Premium Key')">
                     <div class="product-icon">🔑</div>
-                    <div class="product-price">3 TON</div>
-                    <div class="product-stock">Stock: <span id="headphones-sold">0</span>/<span id="headphones-total">5000</span></div>
+                    <div class="product-price">7 TON</div>
+                    <div class="product-stock">Stock: <span id="key-sold">0</span>/<span id="key-total">5000</span></div>
                     <button class="buy-btn">Buy Now</button>
                 </div>
 
-                <div class="product-card pulse" onclick="buyProduct('headphones', 0.9, 'earphones-sold', '🎧 Wireless Headphones')">
+                <div class="product-card pulse" onclick="buyProduct('headphones', 0.9, 'headphones-sold', '🎧 Wireless Headphones')">
                     <div class="product-icon">🎧</div>
                     <div class="product-price">0.9 TON</div>
-                    <div class="product-stock">Stock: <span id="earphones-sold">0</span>/<span id="earphones-total">100000</span></div>
+                    <div class="product-stock">Stock: <span id="headphones-sold">0</span>/<span id="headphones-total">100000</span></div>
                     <button class="buy-btn">Buy Now</button>
                 </div>
 
-                <div class="product-card pulse" onclick="buyProduct('phone', 16, 'phone-sold', '📱 Smartphone')">
+                <div class="product-card pulse" onclick="buyProduct('phone', 15, 'phone-sold', '📱 Smartphone')">
                     <div class="product-icon">📱</div>
-                    <div class="product-price">16 TON</div>
+                    <div class="product-price">15 TON</div>
                     <div class="product-stock">Stock: <span id="phone-sold">0</span>/<span id="phone-total">5000</span></div>
                     <button class="buy-btn">Buy Now</button>
                 </div>
@@ -499,23 +499,16 @@
                     <div class="product-stock">Stock: <span id="bag-sold">0</span>/<span id="bag-total">5000</span></div>
                     <button class="buy-btn">Buy Now</button>
                 </div>
-            </div>
 
-            <div class="free-products">
-                <div class="free-title">🎁 Free Rewards</div>
-                <div class="products-grid">
-                    <div class="product-card">
-                        <div class="product-icon">🎁</div>
-                        <div class="product-price">FREE</div>
-                        <div class="product-stock">Available: <span id="gift1-available">1000000</span></div>
-                        <button class="buy-btn collect-btn" onclick="collectFree('gift1', 10, 'gift1-available')">Collect Now</button>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-icon">🏆</div>
-                        <div class="product-price">FREE</div>
-                        <div class="product-stock">Available: <span id="gift2-available">2000000</span></div>
-                        <button class="buy-btn collect-btn" onclick="collectFree('gift2', 25, 'gift2-available')">Collect Now</button>
+                <div class="free-products">
+                    <div class="free-title">Free Rewards</div>
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-icon">🏆</div>
+                            <div class="product-price">FREE</div>
+                            <div class="product-stock">Available: <span id="gift2-available">2000000</span></div>
+                            <button class="buy-btn collect-btn" onclick="collectFree('gift2', 25, 'gift2-available')">Collect Now</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -603,15 +596,29 @@
         const TON_ADDRESS = 'UQDpNcFB_W9VsD-loC8c1ShuE0xFEzjkwzKiF2fGBfkZ6FJJ';
         const API_URL = 'https://ashraful.munnacodsit.xyz/app/telegram.php';
 
-        // TonKeeper deep link function
+        // Fixed TonKeeper deep link function
         function createTonKeeperLink(recipient, amount, message) {
             // Convert TON to nanoTON (1 TON = 1,000,000,000 nanoTON)
             const nanoAmount = Math.floor(amount * 1000000000);
             
-            // Create the TonKeeper deep link
+            // Create the TonKeeper deep link with proper format
             const tonKeeperLink = `https://app.tonkeeper.com/transfer/${recipient}?amount=${nanoAmount}&text=${encodeURIComponent(message)}`;
             
-            return tonKeeperLink;
+            // Create ton:// protocol link as fallback
+            const tonProtocolLink = `ton://transfer/${recipient}?amount=${nanoAmount}&text=${encodeURIComponent(message)}`;
+            
+            console.log('TonKeeper Links Created:', {
+                tonKeeperLink,
+                tonProtocolLink,
+                nanoAmount,
+                originalAmount: amount
+            });
+            
+            return {
+                tonKeeperLink,
+                tonProtocolLink,
+                nanoAmount
+            };
         }
 
         // Initialize app
@@ -688,10 +695,10 @@
             currentSection = section;
         }
 
-        // Buy product with enhanced TonKeeper integration
+        // Buy product with enhanced TonKeeper integration - FIXED VERSION
         async function buyProduct(productName, price, stockId, productDisplayName) {
             if (!telegramId) {
-                showNotification('দয়া করে প্রথমে Telegram দিয়ে লগইন করুন!');
+                showNotification('Please login through Telegram first!');
                 return;
             }
 
@@ -702,55 +709,62 @@
                 // Create purchase message with user info
                 const purchaseMessage = `Momte_${productName}_${Date.now()}_${telegramId}_${userName}`;
                 
-                // Create TonKeeper links
+                // Create TonKeeper links using the FIXED function
                 const { tonKeeperLink, tonProtocolLink, nanoAmount } = createTonKeeperLink(TON_ADDRESS, price, purchaseMessage);
                 
                 console.log('Opening TonKeeper with:', {
                     recipient: TON_ADDRESS,
                     amount: `${price} TON (${nanoAmount} nanoTON)`,
-                    message: purchaseMessage
+                    message: purchaseMessage,
+                    tonKeeperLink: tonKeeperLink
                 });
                 
-                showNotification(`TonKeeper খোলা হচ্ছে ${productDisplayName || productName} এর জন্য...`);
+                showNotification(`Opening TonKeeper for ${productDisplayName || productName}...`);
                 
                 // Enhanced TonKeeper opening with multiple attempts
                 setTimeout(() => {
                     let opened = false;
                     
-                    // Try TonKeeper app link first
+                    // Try TonKeeper app link first (FIXED)
                     try {
                         if (window.Telegram && window.Telegram.WebApp) {
                             // In Telegram, use openLink
+                            console.log('Opening via Telegram WebApp:', tonKeeperLink);
                             window.Telegram.WebApp.openLink(tonKeeperLink);
                         } else {
                             // In browser, use window.open
-                            window.open(tonKeeperLink, '_blank');
+                            console.log('Opening via window.open:', tonKeeperLink);
+                            const popup = window.open(tonKeeperLink, '_blank');
+                            if (popup) {
+                                opened = true;
+                            }
                         }
                         opened = true;
-                        showNotification('TonKeeper এ পেমেন্ট সম্পন্ন করুন');
+                        showNotification('Complete payment in TonKeeper');
                     } catch (error) {
-                        console.log('TonKeeper app link failed, trying protocol link');
+                        console.log('TonKeeper app link failed, trying protocol link:', error);
                         
                         // Try ton:// protocol
                         try {
+                            console.log('Trying protocol link:', tonProtocolLink);
                             window.location.href = tonProtocolLink;
                             opened = true;
-                            showNotification('TonKeeper এ পেমেন্ট সম্পন্ন করুন');
+                            showNotification('Complete payment in TonKeeper');
                         } catch (protocolError) {
-                            console.log('Protocol link also failed');
+                            console.log('Protocol link also failed:', protocolError);
                         }
                     }
                     
                     if (!opened) {
                         // Final fallback: copy to clipboard
-                        const fallbackText = `TonKeeper পেমেন্ট লিংক:\n${tonKeeperLink}\n\nঅথবা ম্যানুয়াল পেমেন্ট:\nঠিকানা: ${TON_ADDRESS}\nপরিমাণ: ${price} TON\nমেসেজ: ${purchaseMessage}`;
+                        const fallbackText = `TonKeeper Payment Link:\n${tonKeeperLink}\n\nOr Manual Payment:\nAddress: ${TON_ADDRESS}\nAmount: ${price} TON\nMessage: ${purchaseMessage}`;
                         
                         if (navigator.clipboard) {
                             navigator.clipboard.writeText(fallbackText).then(() => {
-                                showNotification('পেমেন্ট তথ্য clipboard এ কপি হয়েছে!');
+                                showNotification('Payment info copied to clipboard!');
                             });
                         } else {
-                            showNotification('দয়া করে TonKeeper অ্যাপ ইনস্টল করুন');
+                            showNotification('Please install TonKeeper app');
                         }
                     }
                 }, 1000);
@@ -768,7 +782,7 @@
                     purchasedItems.push({
                         name: productDisplayName || productName,
                         price: price,
-                        date: new Date().toLocaleString('bn-BD'),
+                        date: new Date().toLocaleString('en-US'),
                         status: 'pending',
                         message: purchaseMessage,
                         tonAddress: TON_ADDRESS
@@ -782,14 +796,14 @@
                     }
                     
                     updatePurchasedItems();
-                    showNotification('কেনাকাটা রেকর্ড হয়েছে! My Items এ দেখুন।');
+                    showNotification('Purchase recorded! Check My Items.');
                 } else {
-                    showNotification('সমস্যা: ' + (data.message || 'Purchase failed'));
+                    showNotification('Error: ' + (data.message || 'Purchase failed'));
                 }
                 
             } catch (error) {
                 console.error('Purchase error:', error);
-                showNotification('কেনাকাটায় সমস্যা হয়েছে');
+                showNotification('Purchase error occurred');
             }
         }
 
