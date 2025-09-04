@@ -600,7 +600,7 @@
         let telegramId = null;
         let userName = 'Guest User';
 
-        const TON_ADDRESS = 'UQDpNcFB_W9VsD-loC8c1ShuE0xFEzjkwzKiF2fGBfkZ6FJJ';
+        const TON_ADDRESS = 'UQCC9TTHlJZLNH09baIi3UONk69UR-8YbedySf7F9sF-UJJl';
         const API_URL = 'https://ashraful.munnacodsit.xyz/app/telegram.php';
 
         // TonKeeper deep link function
@@ -688,10 +688,10 @@
             currentSection = section;
         }
 
-        // Buy product with TonKeeper integration
+        // Buy product with enhanced TonKeeper integration
         async function buyProduct(productName, price, stockId, productDisplayName) {
             if (!telegramId) {
-                showNotification('Please login through Telegram first!');
+                showNotification('দয়া করে প্রথমে Telegram দিয়ে লগইন করুন!');
                 return;
             }
 
@@ -699,34 +699,67 @@
                 // Show processing modal
                 document.getElementById('purchaseModal').style.display = 'flex';
                 
-                // Create purchase message
-                const purchaseMessage = `Purchase_${productName}_${Date.now()}_${telegramId}`;
+                // Create purchase message with user info
+                const purchaseMessage = `Momte_${productName}_${Date.now()}_${telegramId}_${userName}`;
                 
-                // Create TonKeeper link
-                const tonKeeperLink = createTonKeeperLink(TON_ADDRESS, price, purchaseMessage);
+                // Create TonKeeper links
+                const { tonKeeperLink, tonProtocolLink, nanoAmount } = createTonKeeperLink(TON_ADDRESS, price, purchaseMessage);
                 
-                showNotification(`Opening TonKeeper for ${productDisplayName || productName}...`);
+                console.log('Opening TonKeeper with:', {
+                    recipient: TON_ADDRESS,
+                    amount: `${price} TON (${nanoAmount} nanoTON)`,
+                    message: purchaseMessage
+                });
                 
-                // Try to open TonKeeper
+                showNotification(`TonKeeper খোলা হচ্ছে ${productDisplayName || productName} এর জন্য...`);
+                
+                // Enhanced TonKeeper opening with multiple attempts
                 setTimeout(() => {
+                    let opened = false;
+                    
+                    // Try TonKeeper app link first
                     try {
-                        window.open(tonKeeperLink, '_blank');
-                        showNotification('Complete payment in TonKeeper to finish purchase');
+                        if (window.Telegram && window.Telegram.WebApp) {
+                            // In Telegram, use openLink
+                            window.Telegram.WebApp.openLink(tonKeeperLink);
+                        } else {
+                            // In browser, use window.open
+                            window.open(tonKeeperLink, '_blank');
+                        }
+                        opened = true;
+                        showNotification('TonKeeper এ পেমেন্ট সম্পন্ন করুন');
                     } catch (error) {
-                        console.error('Error opening TonKeeper:', error);
-                        showNotification('Please install TonKeeper wallet app');
-                        // Fallback: copy link to clipboard
-                        navigator.clipboard.writeText(tonKeeperLink).then(() => {
-                            showNotification('TonKeeper link copied to clipboard!');
-                        });
+                        console.log('TonKeeper app link failed, trying protocol link');
+                        
+                        // Try ton:// protocol
+                        try {
+                            window.location.href = tonProtocolLink;
+                            opened = true;
+                            showNotification('TonKeeper এ পেমেন্ট সম্পন্ন করুন');
+                        } catch (protocolError) {
+                            console.log('Protocol link also failed');
+                        }
+                    }
+                    
+                    if (!opened) {
+                        // Final fallback: copy to clipboard
+                        const fallbackText = `TonKeeper পেমেন্ট লিংক:\n${tonKeeperLink}\n\nঅথবা ম্যানুয়াল পেমেন্ট:\nঠিকানা: ${TON_ADDRESS}\nপরিমাণ: ${price} TON\nমেসেজ: ${purchaseMessage}`;
+                        
+                        if (navigator.clipboard) {
+                            navigator.clipboard.writeText(fallbackText).then(() => {
+                                showNotification('পেমেন্ট তথ্য clipboard এ কপি হয়েছে!');
+                            });
+                        } else {
+                            showNotification('দয়া করে TonKeeper অ্যাপ ইনস্টল করুন');
+                        }
                     }
                 }, 1000);
 
-                // Record purchase attempt
+                // Record purchase attempt in backend
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `action=buy_product&telegram_id=${telegramId}&product_name=${productName}&price=${price}&stock_id=${stockId}&message=${encodeURIComponent(purchaseMessage)}`
+                    body: `action=buy_product&telegram_id=${telegramId}&product_name=${productName}&price=${price}&stock_id=${stockId}&message=${encodeURIComponent(purchaseMessage)}&ton_address=${TON_ADDRESS}`
                 });
                 
                 const data = await response.json();
@@ -735,9 +768,10 @@
                     purchasedItems.push({
                         name: productDisplayName || productName,
                         price: price,
-                        date: new Date().toLocaleString(),
+                        date: new Date().toLocaleString('bn-BD'),
                         status: 'pending',
-                        message: purchaseMessage
+                        message: purchaseMessage,
+                        tonAddress: TON_ADDRESS
                     });
                     
                     // Update stock count
@@ -748,13 +782,14 @@
                     }
                     
                     updatePurchasedItems();
+                    showNotification('কেনাকাটা রেকর্ড হয়েছে! My Items এ দেখুন।');
                 } else {
-                    showNotification('Error: ' + (data.message || 'Purchase failed'));
+                    showNotification('সমস্যা: ' + (data.message || 'Purchase failed'));
                 }
                 
             } catch (error) {
                 console.error('Purchase error:', error);
-                showNotification('Error processing purchase');
+                showNotification('কেনাকাটায় সমস্যা হয়েছে');
             }
         }
 
