@@ -453,28 +453,28 @@
             <div class="products-grid">
                 <div class="product-card pulse" onclick="buyProduct('watch', 0.5, 'watch-sold', '⌚ Smart Watch')">
                     <div class="product-icon">⌚</div>
-                    <div class="product-price">1.5 TON</div>
+                    <div class="product-price">0.5 TON</div>
                     <div class="product-stock">Stock: <span id="watch-sold">0</span>/<span id="watch-total">50000</span></div>
                     <button class="buy-btn">Buy Now</button>
                 </div>
 
                 <div class="product-card pulse" onclick="buyProduct('key', 0.3, 'headphones-sold', '🔑 Premium Key')">
                     <div class="product-icon">🔑</div>
-                    <div class="product-price">7 TON</div>
+                    <div class="product-price">0.3 TON</div>
                     <div class="product-stock">Stock: <span id="headphones-sold">0</span>/<span id="headphones-total">5000</span></div>
                     <button class="buy-btn">Buy Now</button>
                 </div>
 
                 <div class="product-card pulse" onclick="buyProduct('headphones', 0.1, 'earphones-sold', '🎧 Wireless Headphones')">
                     <div class="product-icon">🎧</div>
-                    <div class="product-price">0.9 TON</div>
+                    <div class="product-price">0.1 TON</div>
                     <div class="product-stock">Stock: <span id="earphones-sold">0</span>/<span id="earphones-total">100000</span></div>
                     <button class="buy-btn">Buy Now</button>
                 </div>
 
                 <div class="product-card pulse" onclick="buyProduct('phone', 1.2, 'phone-sold', '📱 Smartphone')">
                     <div class="product-icon">📱</div>
-                    <div class="product-price">15 TON</div>
+                    <div class="product-price">1.2 TON</div>
                     <div class="product-stock">Stock: <span id="phone-sold">0</span>/<span id="phone-total">5000</span></div>
                     <button class="buy-btn">Buy Now</button>
                 </div>
@@ -501,7 +501,15 @@
                 </div>
             </div>
 
-            
+            <div class="free-products">
+                <div class="free-title">🎁 Free Rewards</div>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-icon">🎁</div>
+                        <div class="product-price">FREE</div>
+                        <div class="product-stock">Available: <span id="gift1-available">1000000</span></div>
+                        <button class="buy-btn collect-btn" onclick="collectFree('gift1', 10, 'gift1-available')">Collect Now</button>
+                    </div>
 
                     <div class="product-card">
                         <div class="product-icon">🏆</div>
@@ -592,7 +600,7 @@
         let telegramId = null;
         let userName = 'Guest User';
 
-        const TON_ADDRESS = 'UQDpNcFB_W9VsD-loC8c1ShuE0xFEzjkwzKiF2fGBfkZ6FJJ';
+        const TON_ADDRESS = 'UQCC9TTHlJZLNH09baIi3UONk69UR-8YbedySf7F9sF-UJJl';
         const API_URL = 'https://ashraful.munnacodsit.xyz/app/telegram.php';
 
         // TonKeeper deep link function
